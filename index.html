@@ -1,77 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swiggy</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <img src="images/unnamed.png">
-    </header>
-    <section>
-        <header>
-        <img src="https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80">
-        <p>Punjabi Momos</p>
-    </header>
-    <article>
-        <div class="navbar">
-            <ul>
-                <li class="heading">Recommended</li>
-                <li>Chandni Chowk Ki Biryani</li>
-                <li>Naughty Momos</li>
-                <li>Naughty Momo Roll</li>
-            </ul> 
-        </div>
-        <div class="menu">
-            <h1>Recommended</h1>
-            <h6>24 ITEMS</h6>
-            <ul>
-                <li>
-                    <div class="dish">
-                    <img src="images/240px-Indian-vegetarian-mark.svg.png">
-                    <p id="name">Kadhai Paneer Biryani</p>
-                    <p>₹ 249</p>
-                </div></li>
-                <li>
-                    <div class="dish">
-                    <img src="images/240px-Indian-vegetarian-mark.svg.png">
-                    <p id="name">Masala Paneer Biryani</p>
-                    <p>₹ 249</p>
-                </div></li>
-            </ul>
-        </div>
-        <div class="cart">
-            <h1>Cart</h1>
-            <h6>1 ITEM</h6>
-            <ul>
-                <li>Kadhai Paneer Biryani</li>
-            </ul>
-            <div class="price">
-                <h4>Subtotal</h4>
-                <h4>₹ 249</h4>
-            </div>   
-            <p>Extra charges may apply</p>
-            <a href=''><div class="checkoutbutton">
-                CHECKOUT→
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Swiggy</title>
+      <link rel="stylesheet" href="styles/style.css">
+   </head>
+   <body>
+      <header class="page-header">
+         <img src="images/swiggyLogo.png" alt="Swiggy Logo">
+      </header>
+      <main>
+         <div class="restaurant-heading">
+            <img src="images/momos.jpg" alt="Momos">
+            <h1>Punjabi Momos</h1>
+         </div>
+         <div class="content">
+            <div class="navbar">
+               <h3>Recommended</h3>
+               <ul>
+                  <li>Chandni Chowk Ki Biryani</li>
+                  <li>Naughty Momos</li>
+                  <li>Naughty Momo Roll</li>
+               </ul>
             </div>
-        </a>
-        </div>
-    </article>
-    </section>
-    <footer>
-        <div class="img"><img src="images/Logo_f5xzza.webp"></div>
-        <p>©2022 Swiggy</p>
-        <div class="socials">
+            <div class="menu">
+               <h2>Recommended</h2>
+               <p>24 ITEMS</p>
+               <ul>
+                  <li class="dish">
+                     <img src="images/vegMark.png" alt="veg">
+                     <p class="dish-name">Kadhai Paneer Biryani</p>
+                     <p class="price">₹ 249</p>
+                  </li>
+                  <li class="dish">
+                     <img src="images/vegMark.png" alt="veg">
+                     <p class="dish-name">Masala Paneer Biryani</p>
+                     <p class="price">₹ 249</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="cart">
+               <h2>Cart</h2>
+               <p>1 ITEM</p>
+               <ul>
+                  <li>Kadhai Paneer Biryani</li>
+               </ul>
+               <div class="amount">
+                  <h4>Subtotal</h4>
+                  <p>₹ 249</p>
+               </div>
+               <p class="extra-charges">Extra charges may apply</p>
+               <button class="check-out-button">
+               CHECKOUT→
+               </button>
+            </div>
+         </div>
+      </main>
+      <footer>
+         <div class="swiggy-img"><img src="images/swiggy.png" alt="Swiggy"></div>
+         <p>©2022 Swiggy</p>
+         <div class="socials">
             <ul>
-                <li><img id="fb" src="images/facebook-icon-png-774.png"></li>
-                <li><img id="ig" src="images/transparent-instagram-icon-5dbbe577325086.1805773615725950632061.png"></li>
-                <li><img id="pin" src="images/pinterest-5-512.png"></li>
-                <li><img id="twitter" src="images/twitter-512.png"></li>
+               <li><img id="fb" src="images/facebook.png" alt="facebook"></li>
+               <li><img id="ig" src="images/instagram.png" alt="instagram"></li>
+               <li><img id="pin" src="images/pinterest.png" alt="pinterest"></li>
+               <li><img id="twitter" src="images/twitter.png" alt="twitter"></li>
             </ul>
-        </div>
-    </footer>
-</body>
+         </div>
+      </footer>
+   </body>
 </html>
