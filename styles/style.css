@@ -2,48 +2,49 @@
     margin:0;
     padding:0;
 }
+.page-header{
+    padding : 0% 10%;
+}
 .page-header img{
     max-height: 70px;
-    padding-left: 10%;
 }
-.restaurant-heading{
-    padding-left: 10%;
+.banner{
+    padding: 40px 10%;
     align-items: center;
     display: flex;
-    height: 30vh;
     background-color: #171A29;
 }
-.restaurant-heading img{
-    max-height: 24vh;
+.banner img{
+    max-height: 200px;
 }
 h1{
-    padding-left: 70px;
+    margin-left: 70px;
     font-weight: normal;
     color: white;
     font-size: 30px;
 }
+main{
+    min-height: calc(100vh - 155px);
+}
 .content{
     display: flex;
 }
-.navbar{
-    padding: 40px 30px 0 0;
+.categories{
+    padding: 30px 30px 0 0;
     text-align: right;
-    height: 600px;
-    flex:1.65;
     border-right: 1.5px #F6F6F7 solid;
 }
-h3{
-    padding-bottom: 7px;
+
+.categories ul li{
+    margin: 10px 0;
+}
+.recommended{
     font-size: 17px;
     font-weight:600;
     color: orange;
 }
-.navbar ul li{
-    padding: 5px 0;
-}
 .menu{
-    padding: 30px 30px 0 35px;
-    flex:2;
+    padding: 30px 30px;
 }
 h2{
     font-size: 30px;
@@ -69,30 +70,29 @@ h2{
 }
 .dish-name{
     font-size: 17px;
-    padding: 15px 0;
+    margin: 15px 0;
     color: #36454F;
 }
 .cart{
-    padding-top: 30px;
-    flex:1.5;
+    padding: 30px;
+    padding-right: 175px;
 }
 .cart ul{
     list-style: none;
-    padding: 30px 0;
+    margin: 30px 0;
 }
 .amount{
-    width: 18rem;
     display: flex;
     justify-content: space-between;
 }
-h4{
+h3{
     font-size: 17px;
 }
 .extra-charges{
     font-size: 14px;
     font-weight: 100;
     color: gray;
-    padding-bottom: 40px;
+    margin-bottom: 40px;
 }
 .amount p{
     color: black;
@@ -100,37 +100,29 @@ h4{
     font-weight: bold;
 }
 .check-out-button{
+    cursor: pointer;
     font-size: 14px;
     font-weight: bold;
     border: none;
-    width: 18rem;
+    width: 100%;
     color: white;
     text-align: center;
     padding:10px 0;
     background-color: #32CD30;
 }
 footer{
+    padding:5px 0;
     background-color: black;
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-.swiggy-img{
-    padding: 20px 0;
     text-align: center;
-    flex:1;
 }
 footer img{
     max-width:140px;
 }
 footer p{
-    padding: 20px 0;
-    text-align: center;
-    flex:1;
     color: white;
-}
-.socials{
-    flex:1;
 }
 footer ul{
     padding: 20px 120px;
@@ -143,4 +135,13 @@ footer ul li{
 }
 footer ul li img {
     max-width:27px;
+}
+.col-5{
+    flex-basis: 40%;
+}
+.col-2{
+    flex-basis:30%
+}
+.col-4{
+    flex-basis: 33.3%;
 }
