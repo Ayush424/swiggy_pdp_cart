@@ -5,7 +5,7 @@ var pdpModule = (function () {
     const itemsByCategoryMap = new Map();
     _addItemsByCategory();
     _displayCategories("recommended");
-    _createMenu("recommended")
+    _createMenu("recommended");
     _displayCart();
     return {
     };
@@ -38,12 +38,22 @@ var pdpModule = (function () {
             });
         });
     }
-
+    function _changeCategory(target) {
+        const categories = document.querySelector(".categories");
+        const menu = document.querySelector(".menu");
+        categories.innerHTML = "";
+        menu.innerHTML = "";
+        _displayCategories(`${target.id}`);
+        _createMenu(`${target.id}`);
+    }
     function _displayCategories(category) {
         const categoriesContainer = document.querySelector(".categories");
         const categoriesItems = document.createElement("ul");
         categoriesItemsList.forEach(element => {
             const categoriesItem = document.createElement("li");
+            categoriesItem.addEventListener('click', event => {
+                _changeCategory(event.target);
+            });
             if (element.id == category) {
                 categoriesItem.classList.add("highlighted");
             }
@@ -71,11 +81,10 @@ var pdpModule = (function () {
     }
     function _createMenuList(category) {
         const menuList = document.createElement("ul");
-        // itemsByCategoryMap.get(category).forEach(
-        //     menuItems.append(_createMenuItem(category,index))
-        // );
-        for (i = 0; i < itemsByCategoryMap.get(category).length; i++) {
-            menuList.append(_createMenuItem(category, i));
+        if(itemsByCategoryMap.get(category)){
+            for (i = 0; i < itemsByCategoryMap.get(category).length; i++) {
+                menuList.append(_createMenuItem(category, i));
+            }
         }
         return menuList;
     }
@@ -84,7 +93,7 @@ var pdpModule = (function () {
         const menuheading = document.createElement("h2");
         const menuSubheading = document.createElement("p");
         menuheading.textContent = `${_categoryNameById(category)}`;
-        menuSubheading.textContent = `${itemsByCategoryMap.get(category).length} Items`;
+        menuSubheading.textContent = itemsByCategoryMap.get(category)?`${itemsByCategoryMap.get(category).length} ITEMS`:"0 ITEMS";
         menuContainer.append(menuheading);
         menuContainer.append(menuSubheading);
         menuContainer.append(_createMenuList(category));
