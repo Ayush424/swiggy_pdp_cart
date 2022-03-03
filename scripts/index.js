@@ -2,11 +2,13 @@ var pdpModule = (function () {
     const categoriesItemsList = _fetchCategoriesList();
     const menuItemsList = _fetchMenuList();
     const cartItemsList = _fetchCartList();
-    var highlighted = categoriesItemsList[0].id;
+    const itemsByCategoryMap = new Map();
+    _addItemsByCategory();
+    _displayCategories("recommended");
+    _createMenu("recommended")
+    _displayCart();
     return {
-        init: display,
     };
-
     function _fetchCategoriesList() {
         return [{ "displayName": "Recommended", "id": "recommended" }, { "displayName": "Dessert and Beverages", "id": "dessert_beverage" }, { "displayName": "Biryani", "id": "biryani" }];
     }
@@ -17,12 +19,32 @@ var pdpModule = (function () {
         return { "lineItems": [{ "id": "1121", "name": "Plain Veg Biryani", "quantity": 2, "price": 149, "currency": "INR" }], "shippingFee": 0, "discount": 0, "tax": 0, "subTotal": 149 };
     }
 
-    function _displayCategories() {
+    function _categoryNameById(id) {
+        var name;
+        categoriesItemsList.forEach((element) => {
+            if (element.id == id) {
+                name = element.displayName;
+            }
+        });
+        return name;
+    }
+    function _addItemsByCategory() {
+        menuItemsList.forEach(element => {
+            element.categories.forEach(category => {
+                if (!itemsByCategoryMap.has(category)) {
+                    itemsByCategoryMap.set(category, []);
+                }
+                itemsByCategoryMap.get(category).push(element);
+            });
+        });
+    }
+
+    function _displayCategories(category) {
         const categoriesContainer = document.querySelector(".categories");
         const categoriesItems = document.createElement("ul");
         categoriesItemsList.forEach(element => {
             const categoriesItem = document.createElement("li");
-            if(element.id==highlighted){
+            if (element.id == category) {
                 categoriesItem.classList.add("highlighted");
             }
             categoriesItem.id = element.id;
@@ -31,38 +53,46 @@ var pdpModule = (function () {
         });
         categoriesContainer.appendChild(categoriesItems);
     }
-
-    function _displayMenu() {
-        const menuContainer = document.querySelector(".menu");
-        const menuItemCount = menuContainer.querySelector("p");
-        menuItemCount.textContent = `${menuItemsList.length} Items`;
-        const menuItems = document.createElement("ul");
-        menuItemsList.forEach(element => {
-            const menuItem = document.createElement("li");
-            menuItem.classList.add("dish");
-            //img in li 
-            const vegMark = document.createElement("img");
-            vegMark.setAttribute("src", "./images/vegMark.png");
-            //dishname in li
-            const dishName = document.createElement("p");
-            dishName.classList.add("dish-name");
-            dishName.textContent = `${element.displayName}`;
-            //price in li
-            const price = document.createElement("p");
-            price.classList.add("price");
-            price.textContent = `₹ ${element.price}`;
-            menuItem.append(vegMark);
-            menuItem.append(dishName);
-            menuItem.append(price);
-            menuItems.append(menuItem);
-        });
-        menuContainer.append(menuItems);
+    function _createMenuItem(category, index) {
+        const menuItem = document.createElement("li");
+        menuItem.classList.add("dish");
+        const vegMark = document.createElement("img");
+        vegMark.setAttribute("src", "./images/vegMark.png");
+        const dishName = document.createElement("p");
+        dishName.classList.add("dish-name");
+        dishName.textContent = itemsByCategoryMap.get(category)[index].displayName;
+        const price = document.createElement("p");
+        price.classList.add("price");
+        price.textContent = `₹ ${itemsByCategoryMap.get(category)[index].price}`;
+        menuItem.append(vegMark);
+        menuItem.append(dishName);
+        menuItem.append(price);
+        return menuItem;
     }
-
+    function _createMenuList(category) {
+        const menuList = document.createElement("ul");
+        // itemsByCategoryMap.get(category).forEach(
+        //     menuItems.append(_createMenuItem(category,index))
+        // );
+        for (i = 0; i < itemsByCategoryMap.get(category).length; i++) {
+            menuList.append(_createMenuItem(category, i));
+        }
+        return menuList;
+    }
+    function _createMenu(category) {
+        const menuContainer = document.querySelector(".menu");
+        const menuheading = document.createElement("h2");
+        const menuSubheading = document.createElement("p");
+        menuheading.textContent = `${_categoryNameById(category)}`;
+        menuSubheading.textContent = `${itemsByCategoryMap.get(category).length} Items`;
+        menuContainer.append(menuheading);
+        menuContainer.append(menuSubheading);
+        menuContainer.append(_createMenuList(category));
+    }
     function _displayCart() {
         const cartContainer = document.querySelector(".cart");
-        const itemCount = cartContainer.querySelector("p");
-        itemCount.textContent = cartItemsList.lineItems.length == 1 ? `${cartItemsList.lineItems.length} ITEM` : `${cartItemsList.lineItems.length} ITEMS`;
+        const cartSubheadingt = cartContainer.querySelector("p");
+        cartSubheadingt.textContent = `${cartItemsList.lineItems.length} ITEMS`;
         const cartItems = document.createElement("ul");
         cartItemsList.lineItems.forEach(element => {
             const cartItem = document.createElement("li");
@@ -89,10 +119,4 @@ var pdpModule = (function () {
         cartContainer.append(disclaimer);
         cartContainer.append(button);
     }
-    function display() {
-        _displayCategories();
-        _displayMenu();
-        _displayCart();
-    }
 })();
-pdpModule.init();
