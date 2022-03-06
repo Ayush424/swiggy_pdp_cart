@@ -119,7 +119,7 @@ var pdpModule = (function () {
             const cartItemEl = document.createElement("li");
             cartItemEl.id = element.id;
             cartItemEl.innerText = element.name;
-            cartItemsEl.appendChild(cartItemEl);
+            cartItemsEl.append(cartItemEl);
         });
         const amountEl = document.createElement("div");
         amountEl.classList.add("amount");
@@ -135,6 +135,7 @@ var pdpModule = (function () {
         buttonEl.innerText = "CHECKOUT ->";
         amountEl.append(amountHeadingEl, priceEl);
         cartContainer.append(cartItemsEl, amountEl, disclaimerEl, buttonEl);
+
     }
 
 })();
@@ -150,6 +151,5 @@ function fetchMenuList() {
 function fetchCartList() {
     return { "lineItems": [{ "id": "1121", "name": "Plain Veg Biryani", "quantity": 2, "price": 149, "currency": "INR" }], "shippingFee": 0, "discount": 0, "tax": 0, "subTotal": 149 };
 }
-
 
 pdpModule.init();
