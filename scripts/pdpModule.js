@@ -2,39 +2,16 @@ var pdpModule = (function () {
     const categoriesItemsList = fetchCategoriesList();
     const menuItemsList = fetchMenuList();
     const cartItemsList = fetchCartList();
-    const itemsByCategoryMap = _addItemsByCategory();
-    
+    const itemsByCategoryMap = createItemsByCategoryMap(menuItemsList);
+
     return {
-        init:display
+        init: display
     };
 
-    function display(){
+    function display() {
         _displayCategories("recommended");
-        _createMenu("recommended")
+        _displayMenu("recommended")
         _displayCart();
-    }
-
-    function _categoryNameById(id) {
-        var name;
-        categoriesItemsList.forEach((element) => {
-            if (element.id == id) {
-                name = element.displayName;
-            }
-        });
-        return name;
-    }
-
-    function _addItemsByCategory() {
-        const _itemsByCategoryMap = new Map()
-        menuItemsList.forEach(element => {
-            element.categories.forEach(category => {
-                if (!_itemsByCategoryMap.has(category)) {
-                    _itemsByCategoryMap.set(category, []);
-                }
-                _itemsByCategoryMap.get(category).push(element);
-            });
-        });
-        return _itemsByCategoryMap;
     }
 
     function _displayCategories(category) {
@@ -52,16 +29,8 @@ var pdpModule = (function () {
         categoriesContainer.append(categoriesItemsEl);
     }
 
-    function _getItem(category, index) {
-        return itemsByCategoryMap.get(category)[index];
-    }
-
-    function _getItemListByCategory(category) {
-        return itemsByCategoryMap.get(category);
-    }
-
     function _createMenuItem(category, index) {
-        const menuItem = _getItem(category, index);
+        const menuItem = getItem(itemsByCategoryMap, category, index);
         const menuItemEl = document.createElement("li");
         menuItemEl.classList.add("dish");
         const vegMarkEl = document.createElement("img");
@@ -72,28 +41,28 @@ var pdpModule = (function () {
         const priceEl = document.createElement("p");
         priceEl.classList.add("price");
         priceEl.textContent = `₹ ${menuItem.price}`;
-        menuItemEl.append(vegMarkEl,dishNameEl,priceEl);
+        menuItemEl.append(vegMarkEl, dishNameEl, priceEl);
         return menuItemEl;
     }
 
     function _createMenuList(category) {
         const menuListEl = document.createElement("ul");
-        for (i = 0; i < _getItemListByCategory(category).length; i++) {
+        for (i = 0; i < getItemListByCategory(itemsByCategoryMap, category).length; i++) {
             menuListEl.append(_createMenuItem(category, i));
         }
         return menuListEl;
     }
 
-    function _createMenu(category) {
-        const menuLength = _getItemListByCategory(category) ? _getItemListByCategory(category).length : 0;
-        const menuHeading = _categoryNameById(category);
+    function _displayMenu(category) {
+        const menuLength = getItemListByCategory(itemsByCategoryMap, category) ? getItemListByCategory(itemsByCategoryMap, category).length : 0;
+        const menuHeading = categoryNameById(categoriesItemsList, category);
         const menuList = _createMenuList(category);
         const menuContainer = document.querySelector(".menu");
         const menuheadingEl = document.createElement("h2");
         const menuSubheadingEl = document.createElement("p");
         menuheadingEl.textContent = `${menuHeading}`;
         menuSubheadingEl.textContent = `${menuLength} Items`;
-        menuContainer.append(menuheadingEl,menuSubheadingEl,menuList);
+        menuContainer.append(menuheadingEl, menuSubheadingEl, menuList);
     }
 
     function _displayCart() {
@@ -120,10 +89,41 @@ var pdpModule = (function () {
         const buttonEl = document.createElement("button");
         buttonEl.className = "check-out-button";
         buttonEl.innerText = "CHECKOUT ->";
-        amountEl.append(amountHeadingEl,priceEl);
-        cartContainer.append(cartItemsEl,amountEl,disclaimerEl,buttonEl);
+        amountEl.append(amountHeadingEl, priceEl);
+        cartContainer.append(cartItemsEl, amountEl, disclaimerEl, buttonEl);
     }
 })();
+
+function createItemsByCategoryMap(list) {
+    const _itemsByCategoryMap = new Map()
+    list.forEach(element => {
+        element.categories.forEach(category => {
+            if (!_itemsByCategoryMap.has(category)) {
+                _itemsByCategoryMap.set(category, []);
+            }
+            _itemsByCategoryMap.get(category).push(element);
+        });
+    });
+    return _itemsByCategoryMap;
+}
+
+function categoryNameById(list, id) {
+    var name;
+    list.forEach((element) => {
+        if (element.id == id) {
+            name = element.displayName;
+        }
+    });
+    return name;
+}
+
+function getItem(map, category, index) {
+    return map.get(category)[index];
+}
+
+function getItemListByCategory(map, category) {
+    return map.get(category);
+}
 
 function fetchCategoriesList() {
     return [{ "displayName": "Recommended", "id": "recommended" }, { "displayName": "Dessert and Beverages", "id": "dessert_beverage" }, { "displayName": "Biryani", "id": "biryani" }];
