@@ -88,7 +88,7 @@ var pdpModule = (function () {
             const cartItemEl = document.createElement("li");
             cartItemEl.id = element.id;
             cartItemEl.innerText = element.name;
-            cartItemsEl.appendChild(cartItemEl);
+            cartItemsEl.append(cartItemEl);
         });
         const amountEl = document.createElement("div");
         amountEl.classList.add("amount");
@@ -104,6 +104,7 @@ var pdpModule = (function () {
         buttonEl.innerText = "CHECKOUT ->";
         amountEl.append(amountHeadingEl, priceEl);
         cartContainer.append(cartItemsEl, amountEl, disclaimerEl, buttonEl);
+
     }
 })();
 
