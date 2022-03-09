@@ -15,6 +15,7 @@ class Model {
       },
     ];
   }
+  
   categoryNameById(id) {
     var name;
     this.categoryList.forEach((element) => {
@@ -24,16 +25,12 @@ class Model {
     });
     return name;
   }
-  // bindCategoryChanged(callback) {
-  //   this.onCategoriesChanged = callback
-  // }
 
   changeMenuList(category) {
     this.currentCategory = category;
     this.menuList = [];
     var menu = this.fetchMenuList();
     this.menuList = menu.filter((dish) => dish.categories.includes(category));
-    // this.onCategoriesChanged(this.categoryList,this.menuList,this.currentCategory);
   }
 
   fetchCategoriesList() {
@@ -194,15 +191,12 @@ class Controller {
     this.model = model;
     this.view = view;
 
-    // this.model.bindCategoryChanged(this.onCategoriesChanged);
-
     this.onCategoriesChanged(
       this.model.categoryList,
       this.model.menuList,
       this.model.currentCategory
     );
     this.view.displayCart(this.model.fetchCartObject());
-    this.view.bindChangeCategory(this.handleCategoryChange);
   }
 
   onCategoriesChanged = (categoryList, menuList, currentCategory) => {
