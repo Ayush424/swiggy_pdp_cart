@@ -20,7 +20,7 @@ var pdpModule = (function () {
     }
   
     function _createCategoryItem(element,category,categoriesItemListEl){
-        const categoriesItemEl = createDomNode("li",undefined,element.displayName,element.id);
+        const categoriesItemEl = createDomNode({type:"li",textContent:element.displayName,id:element.id});
         if (element.id == category) {
             categoriesItemEl.classList.add("highlighted");
         }
@@ -32,24 +32,24 @@ var pdpModule = (function () {
     
     function _displayCategories(category) {
         const categoriesContainer = document.querySelector(".categories");
-        const categoriesItemListEl = createDomNode("ul");
+        const categoriesItemListEl = createDomNode({type:"ul"});
         categoriesItemsList.forEach(element => _createCategoryItem(element,category,categoriesItemListEl));
         categoriesContainer.append(categoriesItemListEl);
     }
 
     function _createMenuItem(category, index) {
         const menuItem = getItem(itemsByCategoryMap, category, index);
-        const menuItemEl = createDomNode("li",["dish"]);
-        const vegMarkEl = createDomNode("img");
+        const menuItemEl = createDomNode({type:"li",classList:["dish"]});
+        const vegMarkEl = createDomNode({type:"img"});
         vegMarkEl.setAttribute("src", "./images/vegMark.png");
-        const dishNameEl = createDomNode("p",["dish-name"],menuItem.displayName);
-        const priceEl = createDomNode("p",["price"],`₹ ${menuItem.price}`);
+        const dishNameEl = createDomNode({type:"p",classList:["dish-name"],textContent:menuItem.displayName});
+        const priceEl = createDomNode({type:"p",classList:["price"],textContent:`₹ ${menuItem.price}`});
         menuItemEl.append(vegMarkEl, dishNameEl, priceEl);
         return menuItemEl;
     }
 
     function _createMenuList(category) {
-        const menuListEl = createDomNode("ul");
+        const menuListEl = createDomNode({type:"ul"});
         if (itemsByCategoryMap.get(category)) {
             for (let i = 0; i < getItemListByCategory(itemsByCategoryMap, category).length; i++) {
                 menuListEl.append(_createMenuItem(category, i));
@@ -63,28 +63,28 @@ var pdpModule = (function () {
         const menuHeading = categoryNameById(categoriesItemsList, category);
         const menuList = _createMenuList(category);
         const menuContainer = document.querySelector(".menu");
-        const menuheadingEl = createDomNode("h2",undefined,menuHeading);
-        const menuSubheadingEl = createDomNode("p",undefined,`${menuLength} Items`);
+        const menuheadingEl = createDomNode({type:"h2",textContent:menuHeading});
+        const menuSubheadingEl = createDomNode({type:"p",textContent:`${menuLength} Items`});
         menuContainer.append(menuheadingEl, menuSubheadingEl, menuList);
     }
 
     function _createCartList(element,cartItemsEl){
-        const cartItemEl = createDomNode("li", undefined, element.name,element.id);
+        const cartItemEl = createDomNode({type:"li",textContent:element.name,id:element.id});
         cartItemsEl.append(cartItemEl);
     }
     
     function _displayCart() {
         const cartLength = cartItemsList.lineItems.length;
         const cartContainer = document.querySelector(".cart");
-        const cartHeading = createDomNode("h2",undefined,"Cart");
-        const cartSubheading = createDomNode("p",undefined,`${cartLength} ITEMS`);
-        const cartItemsEl = createDomNode("ul");
+        const cartHeading = createDomNode({type:"h2",textContent:"Cart"});
+        const cartSubheading = createDomNode({type:"p",textContent:`${cartLength} ITEMS`});
+        const cartItemsEl = createDomNode({type:"ul"});
         cartItemsList.lineItems.forEach(element => _createCartList(element,cartItemsEl));
-        const amountEl = createDomNode("div",["amount"]);
-        const amountHeadingEl = createDomNode("h3", undefined, "Subtotal");
-        const priceEl = createDomNode("p", undefined, `₹ ${cartItemsList.subTotal}`)
-        const disclaimerEl = createDomNode("p", ["disclaimer"], "Extra charges may apply")
-        const buttonEl = createDomNode("button", ["check-out-button"], "CHECKOUT ->")
+        const amountEl = createDomNode({type:"div",classList:["amount"]});
+        const amountHeadingEl = createDomNode({type:"h3",textContent: "Subtotal"});
+        const priceEl = createDomNode({type:"p",textContent: `₹ ${cartItemsList.subTotal}`});
+        const disclaimerEl = createDomNode({type:"p",classList:["disclaimer"],textContent: "Extra charges may apply"});
+        const buttonEl = createDomNode({type:"button",classList:["check-out-button"],textContent: "CHECKOUT ->"});
         amountEl.append(amountHeadingEl, priceEl);
         cartContainer.append(cartHeading,cartSubheading,cartItemsEl, amountEl, disclaimerEl, buttonEl);
     }
@@ -95,7 +95,7 @@ var pdpModule = (function () {
 
 })();
 
-const createDomNode = (type, classList, textContent,id) => {
+const createDomNode = ({type, classList, textContent,id}) => {
     const node = document.createElement(type);
     if(classList){
         node.classList.add(classList);
