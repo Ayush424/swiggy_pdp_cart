@@ -4,50 +4,42 @@ var pdpModule = (function () {
     const cartItemsList = fetchCartList();
     const itemsByCategoryMap = createItemsByCategoryMap(menuItemsList);
 
-    return {
-        init: display
-    };
-
     function display() {
         _displayCategories("recommended");
         _displayMenu("recommended")
         _displayCart();
     }
 
+    function _createCategoryItem(element,category,categoriesItemListEl){
+        const categoriesItemEl = createDomNode("li",undefined,element.displayName);
+        if (element.id == category) {
+            categoriesItemEl.classList.add("highlighted");
+        }
+        categoriesItemEl.id = element.id;
+        categoriesItemListEl.append(categoriesItemEl);
+    }
+    
     function _displayCategories(category) {
         const categoriesContainer = document.querySelector(".categories");
-        const categoriesItemsEl = document.createElement("ul");
-        categoriesItemsList.forEach(element => {
-            const categoriesItemEl = document.createElement("li");
-            if (element.id == category) {
-                categoriesItemEl.classList.add("highlighted");
-            }
-            categoriesItemEl.id = element.id;
-            categoriesItemEl.innerText = element.displayName;
-            categoriesItemsEl.append(categoriesItemEl);
-        });
-        categoriesContainer.append(categoriesItemsEl);
+        const categoriesItemListEl = createDomNode("ul");
+        categoriesItemsList.forEach(element => _createCategoryItem(element,category,categoriesItemListEl));
+        categoriesContainer.append(categoriesItemListEl);
     }
 
     function _createMenuItem(category, index) {
         const menuItem = getItem(itemsByCategoryMap, category, index);
-        const menuItemEl = document.createElement("li");
-        menuItemEl.classList.add("dish");
-        const vegMarkEl = document.createElement("img");
+        const menuItemEl = createDomNode("li",["dish"]);
+        const vegMarkEl = createDomNode("img");
         vegMarkEl.setAttribute("src", "./images/vegMark.png");
-        const dishNameEl = document.createElement("p");
-        dishNameEl.classList.add("dish-name");
-        dishNameEl.textContent = menuItem.displayName;
-        const priceEl = document.createElement("p");
-        priceEl.classList.add("price");
-        priceEl.textContent = `₹ ${menuItem.price}`;
+        const dishNameEl = createDomNode("p",["dish-name"],menuItem.displayName);
+        const priceEl = createDomNode("p",["price"],`₹ ${menuItem.price}`);
         menuItemEl.append(vegMarkEl, dishNameEl, priceEl);
         return menuItemEl;
     }
 
     function _createMenuList(category) {
-        const menuListEl = document.createElement("ul");
-        for (i = 0; i < getItemListByCategory(itemsByCategoryMap, category).length; i++) {
+        const menuListEl = createDomNode("ul");
+        for (let i = 0; i < getItemListByCategory(itemsByCategoryMap, category).length; i++) {
             menuListEl.append(_createMenuItem(category, i));
         }
         return menuListEl;
@@ -58,53 +50,63 @@ var pdpModule = (function () {
         const menuHeading = categoryNameById(categoriesItemsList, category);
         const menuList = _createMenuList(category);
         const menuContainer = document.querySelector(".menu");
-        const menuheadingEl = document.createElement("h2");
-        const menuSubheadingEl = document.createElement("p");
-        menuheadingEl.textContent = `${menuHeading}`;
-        menuSubheadingEl.textContent = `${menuLength} Items`;
+        const menuheadingEl = createDomNode("h2",undefined,menuHeading);
+        const menuSubheadingEl = createDomNode("p",undefined,`${menuLength} Items`);
         menuContainer.append(menuheadingEl, menuSubheadingEl, menuList);
     }
 
+    function _createCartList(element,cartItemsEl){
+        const cartItemEl = createDomNode("li", undefined, element.name)
+        cartItemEl.id = element.id;
+        cartItemsEl.append(cartItemEl);
+    }
+    
     function _displayCart() {
         const cartLength = cartItemsList.lineItems.length;
         const cartContainer = document.querySelector(".cart");
-        const cartSubheadingt = cartContainer.querySelector("p");
-        cartSubheadingt.textContent = `${cartLength} ITEMS`;
-        const cartItemsEl = document.createElement("ul");
-        cartItemsList.lineItems.forEach(element => {
-            const cartItemEl = document.createElement("li");
-            cartItemEl.id = element.id;
-            cartItemEl.innerText = element.name;
-            cartItemsEl.append(cartItemEl);
-        });
-        const amountEl = document.createElement("div");
-        amountEl.classList.add("amount");
-        const amountHeadingEl = document.createElement("h3");
-        amountHeadingEl.textContent = "Subtotal";
-        const priceEl = document.createElement("p");
-        priceEl.textContent = `₹ ${cartItemsList.subTotal}`;
-        const disclaimerEl = document.createElement("p");
-        disclaimerEl.className = "disclaimer";
-        disclaimerEl.textContent = "Extra charges may apply";
-        const buttonEl = document.createElement("button");
-        buttonEl.className = "check-out-button";
-        buttonEl.innerText = "CHECKOUT ->";
+        const cartHeading = createDomNode("h2",undefined,"Cart");
+        const cartSubheading = createDomNode("p",undefined,`${cartLength} ITEMS`);
+        const cartItemsEl = createDomNode("ul");
+        cartItemsList.lineItems.forEach(element => _createCartList(element,cartItemsEl));
+        const amountEl = createDomNode("div",["amount"]);
+        const amountHeadingEl = createDomNode("h3", undefined, "Subtotal");
+        const priceEl = createDomNode("p", undefined, `₹ ${cartItemsList.subTotal}`)
+        const disclaimerEl = createDomNode("p", ["disclaimer"], "Extra charges may apply")
+        const buttonEl = createDomNode("button", ["check-out-button"], "CHECKOUT ->")
         amountEl.append(amountHeadingEl, priceEl);
-        cartContainer.append(cartItemsEl, amountEl, disclaimerEl, buttonEl);
+        cartContainer.append(cartHeading,cartSubheading,cartItemsEl, amountEl, disclaimerEl, buttonEl);
     }
+
+    return {
+        init: display
+    };
+
 })();
 
+const createDomNode = (type, classList, textContent) => {
+    const node = document.createElement(type);
+    if(classList){
+        node.classList.add(classList);
+    }
+    if(textContent){
+        node.textContent=textContent;
+    }
+    return node;
+}
+
+function addElementsToCategoryMap(itemsByCategoryMap,category,element){
+    if (!itemsByCategoryMap.has(category)) {
+        itemsByCategoryMap.set(category, []);
+    }
+    itemsByCategoryMap.get(category).push(element);
+}
+
 function createItemsByCategoryMap(list) {
-    const _itemsByCategoryMap = new Map()
+    const itemsByCategoryMap = new Map()
     list.forEach(element => {
-        element.categories.forEach(category => {
-            if (!_itemsByCategoryMap.has(category)) {
-                _itemsByCategoryMap.set(category, []);
-            }
-            _itemsByCategoryMap.get(category).push(element);
-        });
+        element.categories.forEach(category => addElementsToCategoryMap(itemsByCategoryMap,category,element));
     });
-    return _itemsByCategoryMap;
+    return itemsByCategoryMap;
 }
 
 function categoryNameById(list, id) {
