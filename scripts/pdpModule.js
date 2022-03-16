@@ -6,7 +6,7 @@ var pdpModule = (function () {
 
     function display() {
         _displayCategories("recommended");
-        _displayMenu("recommended")
+        _displayMenu("recommended");
         _displayCart();
     }
 
@@ -137,6 +137,37 @@ function fetchMenuList() {
 
 function fetchCartList() {
     return { "lineItems": [{ "id": "1121", "name": "Plain Veg Biryani", "quantity": 2, "price": 149, "currency": "INR" }], "shippingFee": 0, "discount": 0, "tax": 0, "subTotal": 149 };
+}
+
+function getItem(map, category, index) {
+    return map.get(category)[index];
+}
+
+function getItemListByCategory(map, category) {
+    return map.get(category);
+}
+
+function categoryNameById(list,id) {
+    var name;
+    list.forEach((element) => {
+        if (element.id == id) {
+            name = element.displayName;
+        }
+    });
+    return name;
+}
+
+function createItemsByCategoryMap(list) {
+    const _itemsByCategoryMap = new Map();
+    list.forEach(element => {
+        element.categories.forEach(category => {
+            if (!_itemsByCategoryMap.has(category)) {
+                _itemsByCategoryMap.set(category, []);
+            }
+            _itemsByCategoryMap.get(category).push(element);
+        });
+    });
+    return _itemsByCategoryMap;
 }
 
 pdpModule.init();

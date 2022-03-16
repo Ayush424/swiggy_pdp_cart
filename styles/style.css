@@ -44,6 +44,7 @@ main{
     border-right: 1.5px #F6F6F7 solid;
 }
 .categories ul li{
+    cursor: pointer;
     margin: 10px 0;
 }
 .highlighted{
@@ -142,3 +143,4 @@ footer ul li img {
 .col-4{
     flex-basis: 33.3%;
 }
+
