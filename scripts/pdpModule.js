@@ -20,11 +20,13 @@ var pdpModule = (function () {
     }
   
     function _createCategoryItem(element,category,categoriesItemListEl){
-        const categoriesItemEl = createDomNode("li",undefined,element.displayName);
+        const categoriesItemEl = createDomNode("li",undefined,element.displayName,element.id);
         if (element.id == category) {
             categoriesItemEl.classList.add("highlighted");
         }
-        categoriesItemEl.id = element.id;
+        categoriesItemEl.addEventListener('click', event => {
+            _changeCategory(event.target);
+        });
         categoriesItemListEl.append(categoriesItemEl);
     }
     
@@ -47,7 +49,7 @@ var pdpModule = (function () {
     }
 
     function _createMenuList(category) {
-        const menuListEl = document.createElement("ul");
+        const menuListEl = createDomNode("ul");
         if (itemsByCategoryMap.get(category)) {
             for (let i = 0; i < getItemListByCategory(itemsByCategoryMap, category).length; i++) {
                 menuListEl.append(_createMenuItem(category, i));
@@ -67,8 +69,7 @@ var pdpModule = (function () {
     }
 
     function _createCartList(element,cartItemsEl){
-        const cartItemEl = createDomNode("li", undefined, element.name)
-        cartItemEl.id = element.id;
+        const cartItemEl = createDomNode("li", undefined, element.name,element.id);
         cartItemsEl.append(cartItemEl);
     }
     
@@ -94,13 +95,16 @@ var pdpModule = (function () {
 
 })();
 
-const createDomNode = (type, classList, textContent) => {
+const createDomNode = (type, classList, textContent,id) => {
     const node = document.createElement(type);
     if(classList){
         node.classList.add(classList);
     }
     if(textContent){
         node.textContent=textContent;
+    }
+    if(id){
+        node.id=id;
     }
     return node;
 }
