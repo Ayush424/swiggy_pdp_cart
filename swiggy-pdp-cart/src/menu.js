@@ -1,14 +1,15 @@
 import React from "react";
 import vegMark from "./images/vegMark.png";
 
-export default function Menu() {
+export default function Menu(props) {
   return (
     <div className="menu col-4">
-      <h2>Recommended</h2>
-      <p>24 ITEMS</p>
+      <h2>{props.menuHeading}</h2>
+      <p>{props.list.length} ITEMS</p>
       <ul>
-        <Dish name="Kadhai Paneer Biryani" price="249" />
-        <Dish name="Masala Paneer Biryani" price="249" />
+        {props.list.map((dish) => (
+          <Dish key={dish.id} name={dish.displayName} price={dish.price} />
+        ))}
       </ul>
     </div>
   );
