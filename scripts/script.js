@@ -103,11 +103,12 @@ class View {
   }
 
   bindChangeCategory(handler) {
-    const categoryItems = document.querySelectorAll(".category");
-    categoryItems.forEach((categoryItem) => {
-      categoryItem.addEventListener("click", (event) => {
+    const categoryItems = document.querySelector(".categories");
+    categoryItems.addEventListener("click",(event)=>{
+      if(event.target.className=='category'||event.target.className=='category highlighted')
+      {
         handler(event.target.id);
-      });
+      }
     });
   }
 
