@@ -12,10 +12,20 @@ ul{
     list-style: none;
 }
 .header{
+    justify-content: space-between;
+    display: flex;
     padding : 0% 10%;
 }
 .header img{
     max-height: 70px;
+}
+.user{
+    align-items: center;
+    display: flex;
+}
+.user img{
+    padding: 0 10px;
+    max-height: 40px;
 }
 .banner{
     padding: 40px 10%;
@@ -32,8 +42,22 @@ h1{
     color: #FFFFFF;
     font-size: 3rem;
 }
+.welcome-heading{
+    padding: 100px;
+    margin: 0 auto;
+}
+.restaurant-links{
+    display:flex;
+    justify-content: space-around;
+    padding: 100px 0px;
+}
+a{
+    text-decoration: none;
+    font-size: 3rem;
+    color: black;
+}
 main{
-    min-height: calc(100vh - 155px);
+    min-height: calc(100vh - 150px);
 }
 .content{
     display: flex;
@@ -78,6 +102,11 @@ h2{
     font-size: 1.7rem;
     margin: 15px 0;
     color: #36454F;
+}
+.offer{
+    font-size: 1.7rem;
+    color:goldenrod;
+    padding: 2px 0;
 }
 .cart{
     padding: 30px;

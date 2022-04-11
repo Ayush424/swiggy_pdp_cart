@@ -1,5 +1,6 @@
-import React from "react";
-import vegMark from "./images/vegMark.png";
+import React, { useContext } from "react";
+import { OffersContext } from "../contexts/offersContext";
+import vegMark from "../images/vegMark.png";
 
 export default function Menu(props) {
   return (
@@ -16,9 +17,11 @@ export default function Menu(props) {
 }
 
 function Dish(props) {
+  const { offer } = useContext(OffersContext);
   return (
     <li className="dish">
       <img src={vegMark} alt="veg" />
+      <p className="offer">{offer}</p>
       <p className="dish-name">{props.name}</p>
       <p className="price">₹ {props.price}</p>
     </li>

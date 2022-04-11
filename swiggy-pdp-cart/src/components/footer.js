@@ -1,9 +1,9 @@
 import React from "react";
-import facebook from "./images/facebook.png";
-import instagram from "./images/instagram.png";
-import pinterest from "./images/pinterest.png";
-import twitter from "./images/twitter.png";
-import swiggy from "./images/swiggy.png";
+import facebook from "../images/facebook.png";
+import instagram from "../images/instagram.png";
+import pinterest from "../images/pinterest.png";
+import twitter from "../images/twitter.png";
+import swiggy from "../images/swiggy.png";
 
 export default function Footer() {
   return (
