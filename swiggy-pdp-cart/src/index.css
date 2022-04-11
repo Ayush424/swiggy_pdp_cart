@@ -32,6 +32,20 @@ h1{
     color: #FFFFFF;
     font-size: 3rem;
 }
+.welcome-heading{
+    padding: 100px;
+    margin: 0 auto;
+}
+.restaurant-links{
+    display:flex;
+    justify-content: space-around;
+    padding: 100px 0px;
+}
+a{
+    text-decoration: none;
+    font-size: 3rem;
+    color: black;
+}
 main{
     min-height: calc(100vh - 155px);
 }
