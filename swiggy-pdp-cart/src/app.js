@@ -4,6 +4,8 @@ import Footer from "./components//footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./components//homepage";
 import { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import store from './redux/store'
 
 export default function App() {
   const [name, setName] = useState("");
@@ -23,8 +25,9 @@ export default function App() {
       .catch((error) => {
         console.log(error);
       });
-  });
+  },[]);
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <Header userName={name} />
       <Routes>
@@ -33,5 +36,6 @@ export default function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
+    </Provider>
   );
 }
