@@ -1,5 +1,5 @@
 import React from 'react';
-import swiggyLogo from './images/swiggyLogo.png';
+import swiggyLogo from '../images/swiggyLogo.png';
 
 export default function Header(){
     return (

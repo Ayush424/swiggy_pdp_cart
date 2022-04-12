@@ -1,46 +1,4 @@
-import React from "react";
-import Menu from "./menu";
-import Cart from "./cart";
-import Categories from "./categories";
-
-export default class Content extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      category: "recommended",
-    };
-  }
-
-  createMenuList(category) {
-    const menu = fetchMenuList();
-    const menuList = menu.filter((dish) => dish.categories.includes(category));
-    return menuList;
-  }
-
-  handleChange(category) {
-    this.setState({
-      category: category,
-    });
-  }
-  render() {
-    const categoryList = fetchCategoriesList();
-    const menuList = this.createMenuList(this.state.category);
-    const menuHeading = categoryNameById(this.state.category, categoryList);
-    return (
-      <div className="content">
-        <Categories
-          category={this.state.category}
-          list={categoryList}
-          onCategoryChange={this.handleChange}
-        />
-        <Menu menuHeading={menuHeading} list={menuList} />
-        <Cart />
-      </div>
-    );
-  }
-}
-function categoryNameById(id, list) {
+export function categoryNameById(id, list) {
   var name;
   list.forEach((element) => {
     if (element.id === id) {
@@ -49,15 +7,17 @@ function categoryNameById(id, list) {
   });
   return name;
 }
-function fetchCategoriesList() {
+export function fetchCategoriesList() {
   return [
     { displayName: "Recommended", id: "recommended" },
     { displayName: "Dessert and Beverages", id: "dessert_beverage" },
     { displayName: "Biryani", id: "biryani" },
   ];
 }
-
-function fetchMenuList() {
+export function fetchCartData(){
+  return {"lineItems":[{"id":"1121","name":"Plain Veg Biryani","quantity":2,"price":149,"currency":"INR"}],"shippingFee":0,"discount":0,"tax":0,"subTotal":149};
+}
+export function fetchMenuList() {
   return [
     {
       id: "2121",
