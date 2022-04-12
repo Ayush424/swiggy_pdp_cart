@@ -1,9 +1,9 @@
 import React from "react";
-import Dish from "./dish";
-
+import Dish from "./Dish/Dish";
+import MenuCSS from './menu.module.css'
 export default function Menu({menuHeading,menuList}) {
   return (
-    <div className="menu col-4">
+    <div className={MenuCSS.menu+' col-4'}>
       <h2>{menuHeading}</h2>
       <p>{menuList.length} ITEMS</p>
       <ul>

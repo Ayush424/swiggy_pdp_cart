@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Menu from "./menu";
-import Cart from "./cart";
-import Categories from "./categories";
-import { categoryNameById,fetchCategoriesList,fetchMenuList } from "../services/helper";
-
+import Menu from "./Menu/Menu";
+import Cart from "./Cart/Cart";
+import Categories from "./Categories/Categories";
+import { fetchCategoriesList,fetchMenuList } from "../../../services/fakeFetchFunctions";
+import { categoryNameById } from "./helper/helper";
+import ContentCSS from './content.module.css'
 export default function Content(){
   
   const [category,setCategory]=useState('recommended');
@@ -20,7 +21,7 @@ export default function Content(){
   const menuHeading = categoryNameById(category, categoryList);
 
   return (
-    <div className="content">
+    <div className={ContentCSS.content}>
       <Categories
         category={category}
         categoryList={categoryList}

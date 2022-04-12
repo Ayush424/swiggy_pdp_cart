@@ -1,0 +1,15 @@
+.banner{
+    padding: 40px 10%;
+    align-items: center;
+    display: flex;
+    background-color: #171A29;
+}
+.banner img{
+    max-height: 200px;
+}
+.banner h1{
+    margin-left: 70px;
+    font-weight: normal;
+    color: #FFFFFF;
+    font-size: 3rem;
+}
