@@ -1,4 +1,4 @@
-export function categoryNameById(id, list) {
+export function returnHeadingById(id, list) {
     var name;
     list.forEach((element) => {
       if (element.id === id) {

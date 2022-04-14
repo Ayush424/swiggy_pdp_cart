@@ -1,4 +1,4 @@
-export default function SocialImage({src,alt}) {
+export default function SocialItem({src,alt}) {
     return (
       <li>
         <img src={src} alt={alt} />
