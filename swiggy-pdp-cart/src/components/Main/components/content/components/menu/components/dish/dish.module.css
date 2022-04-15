@@ -1,0 +1,16 @@
+.dish img{
+    height: 12px;
+}
+.dish{
+    padding: 25px 0;
+    border-bottom: 1.5px #F6F6F7 solid;
+}
+.price{
+    font-size: 1.3rem;
+    color: #36454F;
+}
+.dishName{
+    font-size: 1.7rem;
+    margin: 15px 0;
+    color: #36454F;
+}

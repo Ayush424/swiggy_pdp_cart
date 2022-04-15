@@ -1,0 +1,11 @@
+.menu{
+    padding: 30px 30px;
+}
+.menu > p {
+    font-size: 1.3rem;
+    color: #808080;
+}
+.menu h2{
+    font-size: 3rem;
+    color: #171A29;
+}

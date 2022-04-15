@@ -1,0 +1,25 @@
+.footer{
+    padding:5px 0;
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+.footer img{
+    max-width:140px;
+}
+.footer p{
+    color: #FFFFFF;
+}
+.footer ul{
+    padding: 20px 120px;
+    display: flex;
+    justify-content: space-between;
+}
+.footer ul li{
+    flex:1;
+}
+.footer ul li img {
+    max-width:27px;
+}
